@@ -1,10 +1,17 @@
 import { FormEvent, useState } from 'react';
-import { PATH_SIGNUP } from '../constants';
+import {
+  LOCAL_STORAGE_USER_TOKEN_KEY,
+  PATH_MAIN,
+  PATH_SIGNUP,
+} from '../constants';
 import EmailInput from './common/EmailInput';
 import PasswordInput from './common/PasswordInput';
+import { login } from '../api/auth';
 import { checkEmailValidation, checkPasswordValidation } from './common/utils';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,7 +22,18 @@ const Login = () => {
     e.preventDefault();
 
     if (!isInputValid) return;
-    console.log(email, password);
+
+    login({ email, password }).then((data) => {
+      if (data.token) {
+        // 로그인 성공
+        window.localStorage.setItem(LOCAL_STORAGE_USER_TOKEN_KEY, data.token);
+        navigate(PATH_MAIN);
+        return;
+      }
+
+      // 로그인 실패.
+      alert('로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인 해 주세요.');
+    });
   };
 
   return (

@@ -20,6 +20,7 @@ const EmailInput = ({
           className="w-full appearance-none rounded border-2 border-gray-200 bg-gray-200 py-2 px-4 leading-tight text-gray-700 focus:border-purple-500 focus:bg-white focus:outline-none"
           id="inline-email"
           type="email"
+          autoFocus
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="email@example.com"
