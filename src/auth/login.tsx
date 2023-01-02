@@ -9,8 +9,11 @@ import PasswordInput from './common/PasswordInput';
 import { login } from '../api/auth';
 import { checkEmailValidation, checkPasswordValidation } from './common/utils';
 import { useNavigate } from 'react-router-dom';
+import useBlockLoginUser from '../hook/useBlockLoginUser';
 
 const Login = () => {
+  useBlockLoginUser();
+
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

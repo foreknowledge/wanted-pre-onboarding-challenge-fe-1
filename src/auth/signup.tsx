@@ -6,11 +6,14 @@ import {
   PATH_LOGIN,
   PATH_MAIN,
 } from '../constants';
+import useBlockLoginUser from '../hook/useBlockLoginUser';
 import EmailInput from './common/EmailInput';
 import PasswordInput from './common/PasswordInput';
 import { checkEmailValidation, checkPasswordValidation } from './common/utils';
 
 const SignUp = () => {
+  useBlockLoginUser();
+
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
