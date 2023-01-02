@@ -1,3 +1,4 @@
+import { PATH_SIGNUP } from '../constants';
 import LoginForm from './LoginForm';
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
           </button>
           <a
             className="inline-block align-baseline text-sm font-bold text-gray-500 hover:text-gray-700"
-            href="/signup"
+            href={PATH_SIGNUP}
           >
             아이디가 없으신가요?
           </a>
