@@ -1,10 +1,17 @@
 import { FormEvent, useState } from 'react';
-import { PATH_LOGIN } from '../constants';
+import { useNavigate } from 'react-router-dom';
+import { signup } from '../api/auth';
+import {
+  LOCAL_STORAGE_USER_TOKEN_KEY,
+  PATH_LOGIN,
+  PATH_MAIN,
+} from '../constants';
 import EmailInput from './common/EmailInput';
 import PasswordInput from './common/PasswordInput';
 import { checkEmailValidation, checkPasswordValidation } from './common/utils';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,7 +22,19 @@ const SignUp = () => {
     e.preventDefault();
 
     if (!isInputValid) return;
-    console.log(email, password);
+
+    signup({ email, password }).then((data) => {
+      if (data.token) {
+        // 가입 성공
+        alert(data.message);
+        window.localStorage.setItem(LOCAL_STORAGE_USER_TOKEN_KEY, data.token);
+        navigate(PATH_MAIN);
+        return;
+      }
+
+      // 가입 실패.
+      alert('이미 존재하는 사용자 입니다.');
+    });
   };
 
   return (
