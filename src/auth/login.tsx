@@ -3,7 +3,7 @@ import LoginForm from './LoginForm';
 
 const Login = () => {
   return (
-    <LoginForm>
+    <LoginForm title="로그인">
       <div className="md:flex md:items-center">
         <div className="md:w-1/3"></div>
         <div className="flex items-center justify-between md:w-2/3">

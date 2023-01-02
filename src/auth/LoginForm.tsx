@@ -1,8 +1,17 @@
 import { ReactElement } from 'react';
 
-const LoginForm = ({ children }: { children: ReactElement }) => {
+const LoginForm = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactElement;
+}) => {
   return (
     <form className="w-full max-w-sm">
+      <div className="mb-10 flex justify-center text-3xl font-bold text-gray-800">
+        {title}
+      </div>
       <div className="mb-6 md:flex md:items-center">
         <div className="md:w-1/3">
           <label
