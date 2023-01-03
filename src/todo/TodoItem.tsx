@@ -9,11 +9,18 @@ type Props = {
 const TodoItem = ({ todo, isSelected, onClick }: Props) => {
   return (
     <li
-      className={`mb-2 ${isSelected ? 'bg-purple-400' : 'bg-gray-400'}`}
+      className={`border-b-[1px] border-purple-300 px-4 py-2 ${
+        isSelected ? 'rounded bg-purple-300' : ''
+      }`}
       onClick={() => onClick(todo.id)}
     >
-      <h1>{todo.title}</h1>
-      <h2>{todo.content}</h2>
+      <span className="font-bold">{todo.title}</span>
+      <div>
+        <span className="mr-2 text-sm font-medium">
+          {todo.updatedAt.split('T')[0]}
+        </span>
+        <span className="text-sm text-gray-600">{todo.content}</span>
+      </div>
     </li>
   );
 };
