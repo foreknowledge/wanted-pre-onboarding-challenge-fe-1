@@ -19,17 +19,14 @@ const TodoList = ({ selectedId, setSelectedId }: Props) => {
 
   return (
     <ul>
-      {todos.map((todo) => {
-        const isSelected = todo.id == selectedId;
-        return (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            isSelected={isSelected}
-            onClick={(id) => setSelectedId(id)}
-          />
-        );
-      })}
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          isSelected={todo.id == selectedId}
+          onClick={(id) => setSelectedId(id)}
+        />
+      ))}
     </ul>
   );
 };
