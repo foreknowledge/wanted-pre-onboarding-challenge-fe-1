@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LOCAL_STORAGE_USER_TOKEN_KEY, PATH_LOGIN } from '../constants';
+import { PATH_LOGIN } from '../constants';
+import { getUserToken } from '../todo/common/utils';
 
 export default function useNeedLogin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = window.localStorage.getItem(LOCAL_STORAGE_USER_TOKEN_KEY);
+    const token = getUserToken();
     if (!token) {
       navigate(PATH_LOGIN);
     }
