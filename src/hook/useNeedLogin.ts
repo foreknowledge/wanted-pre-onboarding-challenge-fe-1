@@ -11,5 +11,5 @@ export default function useNeedLogin() {
     if (!token) {
       navigate(PATH_LOGIN);
     }
-  }, []);
+  }, [navigate]);
 }

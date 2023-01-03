@@ -11,5 +11,5 @@ export default function useBlockLoginUser() {
     if (token) {
       navigate(PATH_MAIN);
     }
-  }, []);
+  }, [navigate]);
 }
