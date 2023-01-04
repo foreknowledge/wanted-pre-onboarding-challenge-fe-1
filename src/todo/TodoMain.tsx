@@ -33,8 +33,11 @@ const TodoMain = () => {
     const userToken = getUserToken();
     userToken &&
       deleteTodo(userToken, id).then(() => {
-        const lastTodo = todos.filter((item) => item.id !== id).slice(-1)[0];
-        setTodoId(lastTodo?.id);
+        const lastTodo = todos
+          .filter((item) => item.id !== id)
+          .slice(-1)
+          .at(0);
+        setTodoId(lastTodo ? lastTodo.id : null);
       });
   };
 
