@@ -1,12 +1,31 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
-const TodoAddForm = () => {
+type Props = {
+  addTodoItem: (title: string, content: string) => void;
+};
+
+const TodoAddForm = ({ addTodoItem }: Props) => {
   const [title, setTitle] = useState('');
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!title) {
+      alert('올바른 텍스트를 입력 해 주세요.');
+      return;
+    }
+
+    addTodoItem(title, '');
+    setTitle('');
+  };
+
   return (
-    <form className="m-4 flex items-center rounded border-2 border-purple-500 bg-white p-2">
+    <form
+      className="m-4 flex items-center rounded border-2 border-purple-500 bg-white p-2"
+      onSubmit={handleSubmit}
+    >
       <button
         className="flex items-center text-purple-700 hover:opacity-60"
         type="submit"

@@ -1,7 +1,9 @@
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'react-router-dom';
+import { createTodo } from '../api/todos';
 import useNeedLogin from '../hook/useNeedLogin';
+import { getUserToken } from './common/utils';
 import Header from './Header';
 import TodoAddForm from './TodoAddForm';
 import TodoDetail from './TodoDetail';
@@ -14,12 +16,20 @@ const TodoMain = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedId = searchParams.get('id');
 
+  const addTodoItem = (title: string, content: string) => {
+    const userToken = getUserToken();
+    userToken &&
+      createTodo(userToken, { title, content }).then((data) => {
+        setSearchParams(`?id=${data.data.id}`);
+      });
+  };
+
   return (
     <div className="flex h-full w-full flex-col">
       <Header />
       <div className="m-auto flex w-full max-w-4xl flex-1">
         <section className="w-2/5 bg-purple-100">
-          <TodoAddForm />
+          <TodoAddForm addTodoItem={addTodoItem} />
           <TodoList
             selectedId={selectedId}
             setSelectedId={(id) => setSearchParams(`?id=${id}`)}
