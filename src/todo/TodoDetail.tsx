@@ -29,12 +29,12 @@ const TodoDetail = ({ selectedId, deleteTodoItem }: Props) => {
         <div className="flex justify-between">
           <FontAwesomeIcon
             icon={faTrashCan}
-            className="m-3 h-6 w-6 rounded p-1 text-gray-600 hover:bg-purple-200"
+            className="m-3 h-6 w-6 rounded p-1 text-gray-500 hover:bg-purple-200"
             onClick={() => deleteTodoItem(todo.id)}
           />
           <FontAwesomeIcon
             icon={faPenToSquare}
-            className="m-3 h-6 w-6 rounded p-1 text-gray-600 hover:bg-purple-200"
+            className="m-3 h-6 w-6 rounded p-1 text-gray-500 hover:bg-purple-200"
           />
         </div>
         <div className="my-4 mx-8">
