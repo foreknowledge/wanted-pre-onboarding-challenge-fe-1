@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'react-router-dom';
 import useNeedLogin from '../hook/useNeedLogin';
 import Header from './Header';
+import TodoAddForm from './TodoAddForm';
 import TodoDetail from './TodoDetail';
 import TodoList from './TodoList';
 
@@ -18,6 +19,7 @@ const TodoMain = () => {
       <Header />
       <div className="m-auto flex w-full max-w-4xl flex-1">
         <section className="w-2/5 bg-purple-100">
+          <TodoAddForm />
           <TodoList
             selectedId={selectedId}
             setSelectedId={(id) => setSearchParams(`?id=${id}`)}
