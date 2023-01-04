@@ -1,3 +1,5 @@
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { getTodoById } from '../api/todos';
 import { Todo } from './common/Todo';
@@ -8,23 +10,38 @@ const TodoDetail = ({ selectedId }: { selectedId: string | null }) => {
 
   useEffect(() => {
     const userToken = getUserToken();
-    userToken &&
-      selectedId &&
-      getTodoById(userToken, selectedId).then((data) => setTodo(data.data));
+    if (!userToken || !selectedId) {
+      setTodo(null);
+      return;
+    }
+
+    getTodoById(userToken, selectedId).then((data) => setTodo(data));
   }, [selectedId]);
 
   return (
     todo && (
-      <div className="my-4 mx-8">
-        <div className="mb-2 text-center text-sm font-medium text-gray-600">
-          {new Date(todo.updatedAt).toLocaleString('ko', {
-            dateStyle: 'long',
-            timeStyle: 'short',
-          })}
+      <>
+        <div className="flex justify-between">
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="m-3 h-6 w-6 rounded p-1 text-gray-600 hover:bg-purple-200"
+          />
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="m-3 h-6 w-6 rounded p-1 text-gray-600 hover:bg-purple-200"
+          />
         </div>
-        <div className="mb-2 text-2xl font-bold">{todo.title}</div>
-        <div className="font-medium">{todo.content}</div>
-      </div>
+        <div className="my-4 mx-8">
+          <div className="mb-2 text-center text-sm font-medium text-gray-600">
+            {new Date(todo.updatedAt).toLocaleString('ko', {
+              dateStyle: 'long',
+              timeStyle: 'short',
+            })}
+          </div>
+          <div className="mb-2 text-2xl font-bold">{todo.title}</div>
+          <div className="font-medium">{todo.content}</div>
+        </div>
+      </>
     )
   );
 };

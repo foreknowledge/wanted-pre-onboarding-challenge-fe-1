@@ -8,7 +8,8 @@ export async function getTodos(token: string) {
     },
   };
   return await fetch(BASE_URL + 'todos', options) //
-    .then((response) => response.json());
+    .then((response) => response.json())
+    .then((data) => data.data);
 }
 
 export async function getTodoById(token: string, id: string) {
@@ -19,7 +20,8 @@ export async function getTodoById(token: string, id: string) {
     },
   };
   return await fetch(BASE_URL + 'todos/' + id, options) //
-    .then((response) => response.json());
+    .then((response) => response.json())
+    .then((data) => data.data);
 }
 
 export async function createTodo(
@@ -35,7 +37,8 @@ export async function createTodo(
     body: JSON.stringify(data),
   };
   return await fetch(BASE_URL + 'todos/', options) //
-    .then((response) => response.json());
+    .then((response) => response.json())
+    .then((data) => data.data);
 }
 
 export async function updateTodo(
@@ -52,7 +55,8 @@ export async function updateTodo(
     body: JSON.stringify(data),
   };
   return await fetch(BASE_URL + 'todos/' + id, options) //
-    .then((response) => response.json());
+    .then((response) => response.json())
+    .then((data) => data.data);
 }
 
 export async function deleteTodo(token: string, id: string) {
@@ -63,5 +67,6 @@ export async function deleteTodo(token: string, id: string) {
     },
   };
   return await fetch(BASE_URL + 'todos/' + id, options) //
-    .then((response) => response.json());
+    .then((response) => response.json())
+    .then((data) => data.data);
 }
