@@ -1,3 +1,5 @@
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'react-router-dom';
 import useNeedLogin from '../hook/useNeedLogin';
 import Header from './Header';
@@ -16,24 +18,22 @@ const TodoMain = () => {
       <Header />
       <div className="m-auto flex w-full max-w-4xl flex-1">
         <section className="w-2/5 bg-purple-100">
-          <div className="flex justify-end">
-            <img
-              src="/images/trash-can-regular.svg"
-              alt="delete"
-              className="m-2 h-8 w-8 rounded p-1 hover:bg-purple-200"
-            />
-          </div>
           <TodoList
             selectedId={selectedId}
             setSelectedId={(id) => setSearchParams(`?id=${id}`)}
           />
         </section>
         <div className="w-3/5 bg-purple-50">
-          <img
-            src="/images/pen-to-square-regular.svg"
-            alt="new"
-            className="m-2 h-8 w-8 rounded p-1 hover:bg-purple-200"
-          />
+          <div className="flex justify-between">
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              className="m-3 h-6 w-6 rounded p-1 text-gray-600 hover:bg-purple-200"
+            />
+            <FontAwesomeIcon
+              icon={faPenToSquare}
+              className="m-3 h-6 w-6 rounded p-1 text-gray-600 hover:bg-purple-200"
+            />
+          </div>
           <TodoDetail selectedId={selectedId} />
         </div>
       </div>
