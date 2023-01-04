@@ -14,8 +14,9 @@ const TodoList = ({ selectedId, setSelectedId }: Props) => {
 
   useEffect(() => {
     const userToken = getUserToken();
-    userToken && getTodos(userToken).then((data) => setTodos(data.data));
-  }, []);
+    userToken &&
+      getTodos(userToken).then((data) => setTodos(data.data.reverse()));
+  }, [selectedId]);
 
   return (
     <ul className="m-4">
