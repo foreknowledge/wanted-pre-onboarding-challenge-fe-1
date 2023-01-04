@@ -1,4 +1,4 @@
-import { createTodo } from '../api/todos';
+import { createTodo, deleteTodo } from '../api/todos';
 import useNeedLogin from '../hook/useNeedLogin';
 import useTodoId from '../hook/useTodoId';
 import { getUserToken } from './common/utils';
@@ -21,6 +21,11 @@ const TodoMain = () => {
       );
   };
 
+  const deleteTodoItem = (id: string) => {
+    const userToken = getUserToken();
+    userToken && deleteTodo(userToken, id).then(() => setTodoId(''));
+  };
+
   return (
     <div className="flex h-full w-full flex-col">
       <Header />
@@ -30,7 +35,7 @@ const TodoMain = () => {
           <TodoList selectedId={todoId} setSelectedId={(id) => setTodoId(id)} />
         </section>
         <div className="w-3/5 bg-purple-50">
-          <TodoDetail selectedId={todoId} />
+          <TodoDetail selectedId={todoId} deleteTodoItem={deleteTodoItem} />
         </div>
       </div>
     </div>

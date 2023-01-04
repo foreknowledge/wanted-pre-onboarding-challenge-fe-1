@@ -5,7 +5,12 @@ import { getTodoById } from '../api/todos';
 import { Todo } from './common/Todo';
 import { getUserToken } from './common/utils';
 
-const TodoDetail = ({ selectedId }: { selectedId: string | null }) => {
+type Props = {
+  selectedId: string | null;
+  deleteTodoItem: (id: string) => void;
+};
+
+const TodoDetail = ({ selectedId, deleteTodoItem }: Props) => {
   const [todo, setTodo] = useState<Todo | null>(null);
 
   useEffect(() => {
@@ -25,6 +30,7 @@ const TodoDetail = ({ selectedId }: { selectedId: string | null }) => {
           <FontAwesomeIcon
             icon={faTrashCan}
             className="m-3 h-6 w-6 rounded p-1 text-gray-600 hover:bg-purple-200"
+            onClick={() => deleteTodoItem(todo.id)}
           />
           <FontAwesomeIcon
             icon={faPenToSquare}
