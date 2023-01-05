@@ -7,7 +7,7 @@ import { getUserToken } from './common/utils';
 import Header from './Header';
 import TodoAddForm from './TodoAddForm';
 import TodoDetail from './TodoDetail';
-import TodoList from './TodoList';
+import TodoItem from './TodoItem';
 
 const TodoMain = () => {
   // 로그인 여부 확인
@@ -45,13 +45,23 @@ const TodoMain = () => {
     <div className="flex h-full w-full flex-col">
       <Header />
       <div className="m-auto flex w-full max-w-4xl flex-1">
-        <section className="w-2/5 bg-purple-100">
+        <section className="flex w-2/5 flex-col bg-purple-100">
           <TodoAddForm addTodoItem={addTodoItem} />
-          <TodoList
-            todos={todos}
-            selectedId={todoId}
-            setSelectedId={setTodoId}
-          />
+          <div className="relative flex-1">
+            <ul className="absolute top-0 bottom-0 left-0 right-0 overflow-scroll p-4">
+              {todos
+                .slice()
+                .reverse()
+                .map((todo) => (
+                  <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    isSelected={todo.id === todoId}
+                    onClick={(id) => setTodoId(id)}
+                  />
+                ))}
+            </ul>
+          </div>
         </section>
         <div className="w-3/5 bg-purple-50">
           <TodoDetail selectedId={todoId} deleteTodoItem={deleteTodoItem} />
