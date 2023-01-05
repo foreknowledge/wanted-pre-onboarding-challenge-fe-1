@@ -6,7 +6,7 @@
 
 | 사용처 | 기술 |
 | :-: | - |
-| 프로젝트 설정 | Create React App, Typescript, TailwindCss |
+| 프로젝트 설정 | Create React App, Typescript, Tailwind CSS |
 | 서버 요청 | 내장 fetch API |
 | 페이지 처리 | React Router |
 | 아이콘 | FontAwesome |
