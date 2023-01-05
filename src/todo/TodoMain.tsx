@@ -25,6 +25,9 @@ const TodoMain = () => {
   }, [todoId]);
 
   const handleAdd = (title: string, content: string) => {
+    // 편집 중이라면 자동 저장
+    isEditing && curTodo && handleEditApply(curTodo);
+
     const userToken = getUserToken();
     userToken &&
       createTodo(userToken, { title, content }).then((data) =>
@@ -88,7 +91,8 @@ const TodoMain = () => {
                     todo={todo}
                     isSelected={todo.id === todoId}
                     onClick={(id) => {
-                      handleEditCancel();
+                      // 편집 중이라면 자동 저장
+                      isEditing && curTodo && handleEditApply(curTodo);
                       setTodoId(id);
                     }}
                   />
