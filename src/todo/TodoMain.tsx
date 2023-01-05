@@ -74,7 +74,7 @@ const TodoMain = () => {
   return (
     <div className="flex h-full w-full flex-col">
       <Header />
-      <div className="m-auto flex w-full max-w-4xl flex-1">
+      <div className="m-auto flex w-full flex-1">
         <section className="flex w-2/5 flex-col bg-purple-100">
           <TodoAddForm onAdd={handleAdd} />
           <div className="relative flex-1">
@@ -96,7 +96,7 @@ const TodoMain = () => {
             </ul>
           </div>
         </section>
-        <div className="w-3/5 bg-purple-50">
+        <div className="flex w-3/5 flex-col bg-purple-50">
           {!isEdit && (
             <TodoDetail
               todo={curTodo}

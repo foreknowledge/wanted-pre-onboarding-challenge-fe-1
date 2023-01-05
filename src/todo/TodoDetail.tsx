@@ -1,9 +1,6 @@
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
-import { getTodoById } from '../api/todos';
 import { Todo } from './common/Todo';
-import { getUserToken } from './common/utils';
 
 type Props = {
   todo: Todo | null;
@@ -27,15 +24,19 @@ const TodoDetail = ({ todo, onDelete, onEdit }: Props) => {
             onClick={() => onEdit(todo.id)}
           />
         </div>
-        <div className="my-4 mx-8">
+        <div className="flex flex-1 flex-col py-4">
           <div className="mb-2 text-center text-sm font-medium text-gray-600">
             {new Date(todo.updatedAt).toLocaleString('ko', {
               dateStyle: 'long',
               timeStyle: 'short',
             })}
           </div>
-          <div className="mb-2 text-2xl font-bold">{todo.title}</div>
-          <div className="font-medium">{todo.content}</div>
+          <div className="mb-2 px-8 text-2xl font-bold">{todo.title}</div>
+          <div className="relative flex-1">
+            <div className="absolute top-0 bottom-0 right-0 left-0 overflow-scroll whitespace-pre-line px-8 font-medium">
+              {todo.content}
+            </div>
+          </div>
         </div>
       </>
     )
