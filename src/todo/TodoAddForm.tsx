@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormEvent, useState } from 'react';
 
 type Props = {
-  addTodoItem: (title: string, content: string) => void;
+  onAdd: (title: string, content: string) => void;
 };
 
-const TodoAddForm = ({ addTodoItem }: Props) => {
+const TodoAddForm = ({ onAdd }: Props) => {
   const [title, setTitle] = useState('');
 
   const handleSubmit = (e: FormEvent) => {
@@ -17,7 +17,7 @@ const TodoAddForm = ({ addTodoItem }: Props) => {
       return;
     }
 
-    addTodoItem(title, '');
+    onAdd(title, '');
     setTitle('');
   };
 

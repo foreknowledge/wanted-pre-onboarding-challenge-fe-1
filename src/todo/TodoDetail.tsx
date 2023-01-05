@@ -6,23 +6,12 @@ import { Todo } from './common/Todo';
 import { getUserToken } from './common/utils';
 
 type Props = {
-  selectedId: string | null;
-  deleteTodoItem: (id: string) => void;
+  todo: Todo | null;
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 };
 
-const TodoDetail = ({ selectedId, deleteTodoItem }: Props) => {
-  const [todo, setTodo] = useState<Todo | null>(null);
-
-  useEffect(() => {
-    const userToken = getUserToken();
-    if (!userToken || !selectedId) {
-      setTodo(null);
-      return;
-    }
-
-    getTodoById(userToken, selectedId).then((data) => setTodo(data));
-  }, [selectedId]);
-
+const TodoDetail = ({ todo, onDelete, onEdit }: Props) => {
   return (
     todo && (
       <>
@@ -30,11 +19,12 @@ const TodoDetail = ({ selectedId, deleteTodoItem }: Props) => {
           <FontAwesomeIcon
             icon={faTrashCan}
             className="m-3 h-6 w-6 rounded p-1 text-gray-500 hover:bg-purple-200"
-            onClick={() => deleteTodoItem(todo.id)}
+            onClick={() => onDelete(todo.id)}
           />
           <FontAwesomeIcon
             icon={faPenToSquare}
             className="m-3 h-6 w-6 rounded p-1 text-gray-500 hover:bg-purple-200"
+            onClick={() => onEdit(todo.id)}
           />
         </div>
         <div className="my-4 mx-8">
