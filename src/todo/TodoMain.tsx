@@ -16,7 +16,7 @@ const TodoMain = () => {
 
   const [todoId, setTodoId] = useTodoId();
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const curTodo = todos.find((item) => item.id === todoId) || null;
 
   useEffect(() => {
@@ -54,13 +54,13 @@ const TodoMain = () => {
   };
 
   const handleEditCancel = () => {
-    setIsEdit(false);
+    setIsEditing(false);
     const userToken = getUserToken();
     userToken && getTodos(userToken).then(setTodos);
   };
 
   const handleEditApply = (todo: Todo) => {
-    setIsEdit(false);
+    setIsEditing(false);
     const userToken = getUserToken();
     userToken &&
       updateTodo(userToken, todo.id, {
@@ -97,14 +97,14 @@ const TodoMain = () => {
           </div>
         </section>
         <div className="flex w-3/5 flex-col bg-purple-50">
-          {!isEdit && (
+          {!isEditing && (
             <TodoDetail
               todo={curTodo}
               onDelete={handleDelete}
-              onEdit={() => setIsEdit(true)}
+              onEdit={() => setIsEditing(true)}
             />
           )}
-          {isEdit && (
+          {isEditing && (
             <TodoEdit
               todo={curTodo}
               onChange={handleEditChange}
