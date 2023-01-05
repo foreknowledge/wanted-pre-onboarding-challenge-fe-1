@@ -8,10 +8,13 @@ export default function useTodoId(): [
   const [searchParams, setSearchParams] = useSearchParams();
 
   const todoId = searchParams.get('id');
-  const setTodoId = useCallback((id: string | null) => {
-    if (id) setSearchParams(`?id=${id}`);
-    else setSearchParams('');
-  }, []);
+  const setTodoId = useCallback(
+    (id: string | null) => {
+      if (id) setSearchParams(`?id=${id}`);
+      else setSearchParams('');
+    },
+    [setSearchParams]
+  );
 
   return [todoId, setTodoId];
 }
