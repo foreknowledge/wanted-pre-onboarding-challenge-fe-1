@@ -101,14 +101,14 @@ const TodoMain = () => {
           </div>
         </section>
         <div className="flex w-3/5 flex-col bg-purple-50">
-          {!isEditing && (
+          {curTodo && !isEditing && (
             <TodoDetail
               todo={curTodo}
               onDelete={handleDelete}
               onEdit={() => setIsEditing(true)}
             />
           )}
-          {isEditing && (
+          {curTodo && isEditing && (
             <TodoEdit
               todo={curTodo}
               onChange={handleEditChange}
