@@ -15,11 +15,9 @@ const TodoItem = ({ todo, isSelected, onClick }: Props) => {
       onClick={() => onClick(todo.id)}
     >
       <span className="font-bold">{todo.title}</span>
-      <div>
-        <span className="mr-2 text-sm font-medium">
-          {todo.updatedAt.split('T')[0]}
-        </span>
-        <span className="text-sm text-gray-600">{todo.content}</span>
+      <div className="text-sm line-clamp-2">
+        <span className="mr-2 font-medium">{todo.updatedAt.split('T')[0]}</span>
+        <span className="text-gray-600 ">{todo.content}</span>
       </div>
     </li>
   );
