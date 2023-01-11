@@ -1,7 +1,7 @@
-export function checkEmailValidation(email: string): boolean {
+export function isEmailValid(email: string): boolean {
   return email.includes('@') && email.includes('.');
 }
 
-export function checkPasswordValidation(password: string): boolean {
+export function isPasswordValid(password: string): boolean {
   return password.length >= 8;
 }

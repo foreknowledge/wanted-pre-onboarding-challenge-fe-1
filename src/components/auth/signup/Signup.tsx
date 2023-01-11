@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signup } from '../../../api/auth/auth.api';
 import useBlockLoginUser from '../../../hook/useBlockLoginUser';
 import EmailInput from '../shared/EmailInput';
-import {
-  checkEmailValidation,
-  checkPasswordValidation,
-} from '../../../utils/auth/auth.util';
+import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
 import PasswordInput from '../shared/PasswordInput';
 import { LOCAL_STORAGE_USER_TOKEN_KEY } from '../../../constants/token/token.constant';
 import {
@@ -21,8 +18,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const isInputValid =
-    checkEmailValidation(email) && checkPasswordValidation(password);
+  const isInputValid = isEmailValid(email) && isPasswordValid(password);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

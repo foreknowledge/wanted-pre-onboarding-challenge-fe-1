@@ -1,10 +1,7 @@
 import { FormEvent, useState } from 'react';
 import EmailInput from '../shared/EmailInput';
 import { login } from '../../../api/auth/auth.api';
-import {
-  checkEmailValidation,
-  checkPasswordValidation,
-} from '../../../utils/auth/auth.util';
+import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
 import { useNavigate } from 'react-router-dom';
 import useBlockLoginUser from '../../../hook/useBlockLoginUser';
 import PasswordInput from '../shared/PasswordInput';
@@ -21,8 +18,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const isInputValid =
-    checkEmailValidation(email) && checkPasswordValidation(password);
+  const isInputValid = isEmailValid(email) && isPasswordValid(password);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
