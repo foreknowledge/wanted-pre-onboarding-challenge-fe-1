@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_USER_TOKEN_KEY } from '../constants';
+import { LOCAL_STORAGE_USER_TOKEN_KEY } from '../../../constants/token/token.constant';
 
 const Header = () => {
   const handleLogout = () => {

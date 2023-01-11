@@ -1,15 +1,18 @@
 import { FormEvent, useState } from 'react';
+import EmailInput from '../shared/EmailInput';
+import { login } from '../../../api/auth/auth.api';
 import {
-  LOCAL_STORAGE_USER_TOKEN_KEY,
+  checkEmailValidation,
+  checkPasswordValidation,
+} from '../../../utils/auth/auth.util';
+import { useNavigate } from 'react-router-dom';
+import useBlockLoginUser from '../../../hook/useBlockLoginUser';
+import PasswordInput from '../shared/PasswordInput';
+import { LOCAL_STORAGE_USER_TOKEN_KEY } from '../../../constants/token/token.constant';
+import {
   PATH_MAIN,
   PATH_SIGNUP,
-} from '../constants';
-import EmailInput from './common/EmailInput';
-import PasswordInput from './common/PasswordInput';
-import { login } from '../api/auth';
-import { checkEmailValidation, checkPasswordValidation } from './common/utils';
-import { useNavigate } from 'react-router-dom';
-import useBlockLoginUser from '../hook/useBlockLoginUser';
+} from '../../../constants/routes/routes.constant';
 
 const Login = () => {
   useBlockLoginUser();

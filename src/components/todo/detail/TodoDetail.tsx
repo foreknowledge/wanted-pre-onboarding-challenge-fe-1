@@ -1,6 +1,6 @@
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Todo } from './common/Todo';
+import { Todo } from '../../../types/todo/todo.type';
 
 type Props = {
   todo: Todo;

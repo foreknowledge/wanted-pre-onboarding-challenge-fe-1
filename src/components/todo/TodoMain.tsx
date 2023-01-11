@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
-import { createTodo, deleteTodo, getTodos, updateTodo } from '../api/todos';
-import useNeedLogin from '../hook/useNeedLogin';
-import useTodoId from '../hook/useTodoId';
-import { Todo } from './common/Todo';
-import { getUserToken } from './common/utils';
-import Header from './Header';
-import TodoAddForm from './TodoAddForm';
-import TodoDetail from './TodoDetail';
-import TodoEdit from './TodoEdit';
-import TodoItem from './TodoItem';
+import {
+  createTodo,
+  deleteTodo,
+  getTodos,
+  updateTodo,
+} from '../../api/todo/todo.api';
+import useNeedLogin from '../../hook/useNeedLogin';
+import useTodoId from '../../hook/useTodoId';
+import { Todo } from '../../types/todo/todo.type';
+import { getUserToken } from '../../utils/todo/todo.util';
+import Header from './shared/Header';
+import TodoAddForm from './list/TodoAddForm';
+import TodoDetail from './detail/TodoDetail';
+import TodoEdit from './detail/TodoEdit';
+import TodoList from './list/TodoList';
 
 const TodoMain = () => {
   // 로그인 여부 확인
@@ -81,23 +86,15 @@ const TodoMain = () => {
         <section className="flex w-2/5 flex-col bg-purple-100">
           <TodoAddForm onAdd={handleAdd} />
           <div className="relative flex-1">
-            <ul className="absolute top-0 bottom-0 left-0 right-0 overflow-scroll p-4">
-              {todos
-                .slice()
-                .reverse()
-                .map((todo) => (
-                  <TodoItem
-                    key={todo.id}
-                    todo={todo}
-                    isSelected={todo.id === todoId}
-                    onClick={(id) => {
-                      // 편집 중이라면 자동 저장
-                      isEditing && curTodo && handleEditApply(curTodo);
-                      setTodoId(id);
-                    }}
-                  />
-                ))}
-            </ul>
+            <TodoList
+              todos={todos}
+              todoId={todoId}
+              onItemClick={(id) => {
+                // 편집 중이라면 자동 저장
+                isEditing && curTodo && handleEditApply(curTodo);
+                setTodoId(id);
+              }}
+            />
           </div>
         </section>
         <div className="flex w-3/5 flex-col bg-purple-50">

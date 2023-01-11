@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PATH_MAIN } from '../constants';
-import { getUserToken } from '../todo/common/utils';
+import { PATH_MAIN } from '../constants/routes/routes.constant';
+import { getUserToken } from '../utils/todo/todo.util';
 
 export default function useBlockLoginUser() {
   const navigate = useNavigate();

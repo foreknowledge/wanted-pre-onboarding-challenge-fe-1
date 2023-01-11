@@ -1,9 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './auth/Login';
-import SignUp from './auth/Signup';
-import { PATH_LOGIN, PATH_MAIN, PATH_SIGNUP } from './constants';
-import NotFound from './todo/NotFound';
-import TodoMain from './todo/TodoMain';
+import Login from './components/auth/login/Login';
+import SignUp from './components/auth/signup/Signup';
+import NotFound from './components/todo/shared/NotFound';
+import TodoMain from './components/todo/TodoMain';
+import {
+  PATH_LOGIN,
+  PATH_MAIN,
+  PATH_SIGNUP,
+} from './constants/routes/routes.constant';
 
 const App = () => {
   return (

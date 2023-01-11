@@ -1,4 +1,4 @@
-import { BASE_URL } from '../constants';
+import { BASE_URL } from '../../constants/api/api.constant';
 
 export async function getTodos(token: string) {
   const options: RequestInit = {
