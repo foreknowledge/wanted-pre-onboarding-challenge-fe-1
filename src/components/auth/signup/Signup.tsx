@@ -2,14 +2,10 @@ import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../../api/auth/auth.api';
 import useBlockLoginUser from '../../../hook/useBlockLoginUser';
-import EmailInput from '../shared/EmailInput';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
-import PasswordInput from '../shared/PasswordInput';
-import {
-  PATH_LOGIN,
-  PATH_MAIN,
-} from '../../../constants/routes/routes.constant';
 import { setLoginToken } from '../../../utils/token/token.util';
+import EmailInput from '../shared/EmailInput';
+import PasswordInput from '../shared/PasswordInput';
 
 const SignUp = () => {
   useBlockLoginUser();
@@ -30,7 +26,7 @@ const SignUp = () => {
         // 가입 성공
         alert(data.message);
         setLoginToken(data.token);
-        navigate(PATH_MAIN);
+        navigate('/');
         return;
       }
 
@@ -58,7 +54,7 @@ const SignUp = () => {
           </button>
           <a
             className="inline-block align-baseline text-sm font-bold text-gray-500 hover:text-gray-700"
-            href={PATH_LOGIN}
+            href="/auth/login"
           >
             이미 가입하셨나요?
           </a>

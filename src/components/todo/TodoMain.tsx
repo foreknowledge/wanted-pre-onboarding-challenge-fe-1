@@ -5,21 +5,21 @@ import {
   getTodos,
   updateTodo,
 } from '../../api/todo/todo.api';
+import useNavigateTodo from '../../hook/useNavigateTodo';
 import useNeedLogin from '../../hook/useNeedLogin';
-import useTodoId from '../../hook/useTodoId';
 import { Todo } from '../../types/todo/todo.type';
 import { getLoginToken } from '../../utils/token/token.util';
-import Header from './shared/Header';
-import TodoAddForm from './list/TodoAddForm';
 import TodoDetail from './detail/TodoDetail';
 import TodoEdit from './detail/TodoEdit';
+import TodoAddForm from './list/TodoAddForm';
 import TodoList from './list/TodoList';
+import Header from './shared/Header';
 
 const TodoMain = () => {
   // 로그인 여부 확인
   useNeedLogin();
 
-  const [todoId, setTodoId] = useTodoId();
+  const [todoId, navigateTodo] = useNavigateTodo();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const curTodo = todos.find((item) => item.id === todoId) || null;
@@ -36,7 +36,7 @@ const TodoMain = () => {
     const userToken = getLoginToken();
     userToken &&
       createTodo(userToken, { title, content }).then((data) =>
-        setTodoId(data.id)
+        navigateTodo(data.id)
       );
   };
 
@@ -48,7 +48,7 @@ const TodoMain = () => {
           .filter((item) => item.id !== id)
           .slice(-1)
           .at(0);
-        setTodoId(lastTodo?.id || null);
+        navigateTodo(lastTodo?.id || null);
       });
   };
 
@@ -92,7 +92,7 @@ const TodoMain = () => {
               onItemClick={(id) => {
                 // 편집 중이라면 자동 저장
                 isEditing && curTodo && handleEditApply(curTodo);
-                setTodoId(id);
+                navigateTodo(id);
               }}
             />
           </div>

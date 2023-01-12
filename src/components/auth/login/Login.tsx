@@ -1,10 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../../api/auth/auth.api';
-import {
-  PATH_MAIN,
-  PATH_SIGNUP,
-} from '../../../constants/routes/routes.constant';
 import useBlockLoginUser from '../../../hook/useBlockLoginUser';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
 import { setLoginToken } from '../../../utils/token/token.util';
@@ -29,7 +25,7 @@ const Login = () => {
       if (data.token) {
         // 로그인 성공
         setLoginToken(data.token);
-        navigate(PATH_MAIN);
+        navigate('/');
         return;
       }
 
@@ -57,7 +53,7 @@ const Login = () => {
           </button>
           <a
             className="inline-block align-baseline text-sm font-bold text-gray-500 hover:text-gray-700"
-            href={PATH_SIGNUP}
+            href="/auth/signup"
           >
             아이디가 없으신가요?
           </a>
