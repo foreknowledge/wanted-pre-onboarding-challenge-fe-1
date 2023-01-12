@@ -1,10 +1,11 @@
 import { BASE_URL } from '../../constants/api/api.constant';
+import { getAuthToken } from '../../utils/token/token.util';
 
-export async function getTodos(token: string) {
+export async function getTodos() {
   const options: RequestInit = {
     method: 'GET',
     headers: {
-      Authorization: token,
+      Authorization: getAuthToken() ?? '',
     },
   };
   return await fetch(BASE_URL + 'todos', options) //
@@ -12,11 +13,11 @@ export async function getTodos(token: string) {
     .then((data) => data.data);
 }
 
-export async function getTodoById(token: string, id: string) {
+export async function getTodoById(id: string) {
   const options: RequestInit = {
     method: 'GET',
     headers: {
-      Authorization: token,
+      Authorization: getAuthToken() ?? '',
     },
   };
   return await fetch(BASE_URL + 'todos/' + id, options) //
@@ -24,14 +25,11 @@ export async function getTodoById(token: string, id: string) {
     .then((data) => data.data);
 }
 
-export async function createTodo(
-  token: string,
-  data: { title: string; content: string }
-) {
+export async function createTodo(data: { title: string; content: string }) {
   const options: RequestInit = {
     method: 'POST',
     headers: {
-      Authorization: token,
+      Authorization: getAuthToken() ?? '',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
@@ -42,14 +40,13 @@ export async function createTodo(
 }
 
 export async function updateTodo(
-  token: string,
   id: string,
   data: { title: string; content: string }
 ) {
   const options: RequestInit = {
     method: 'PUT',
     headers: {
-      Authorization: token,
+      Authorization: getAuthToken() ?? '',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
@@ -59,11 +56,11 @@ export async function updateTodo(
     .then((data) => data.data);
 }
 
-export async function deleteTodo(token: string, id: string) {
+export async function deleteTodo(id: string) {
   const options: RequestInit = {
     method: 'DELETE',
     headers: {
-      Authorization: token,
+      Authorization: getAuthToken() ?? '',
     },
   };
   return await fetch(BASE_URL + 'todos/' + id, options) //

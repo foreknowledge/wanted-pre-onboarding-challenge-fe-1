@@ -8,7 +8,6 @@ import {
 import useNavigateTodo from '../../hook/useNavigateTodo';
 import useNeedLogin from '../../hook/useNeedLogin';
 import { Todo } from '../../types/todo/todo.type';
-import { getAuthToken } from '../../utils/token/token.util';
 import TodoDetail from './detail/TodoDetail';
 import TodoEdit from './detail/TodoEdit';
 import TodoAddForm from './list/TodoAddForm';
@@ -25,31 +24,24 @@ const TodoMain = () => {
   const curTodo = todos.find((item) => item.id === todoId) || null;
 
   useEffect(() => {
-    const userToken = getAuthToken();
-    userToken && getTodos(userToken).then(setTodos);
+    getTodos().then(setTodos);
   }, [todoId]);
 
   const handleAdd = (title: string, content: string) => {
     // 편집 중이라면 자동 저장
     isEditing && curTodo && handleEditApply(curTodo);
 
-    const userToken = getAuthToken();
-    userToken &&
-      createTodo(userToken, { title, content }).then((data) =>
-        navigateTodo(data.id)
-      );
+    createTodo({ title, content }).then((data) => navigateTodo(data.id));
   };
 
   const handleDelete = (id: string) => {
-    const userToken = getAuthToken();
-    userToken &&
-      deleteTodo(userToken, id).then(() => {
-        const lastTodo = todos
-          .filter((item) => item.id !== id)
-          .slice(-1)
-          .at(0);
-        navigateTodo(lastTodo?.id || null);
-      });
+    deleteTodo(id).then(() => {
+      const lastTodo = todos
+        .filter((item) => item.id !== id)
+        .slice(-1)
+        .at(0);
+      navigateTodo(lastTodo?.id || null);
+    });
   };
 
   const handleEditChange = (todo: Todo) => {
@@ -63,20 +55,17 @@ const TodoMain = () => {
 
   const handleEditCancel = () => {
     setIsEditing(false);
-    const userToken = getAuthToken();
-    userToken && getTodos(userToken).then(setTodos);
+    getTodos().then(setTodos);
   };
 
   const handleEditApply = (todo: Todo) => {
     setIsEditing(false);
-    const userToken = getAuthToken();
-    userToken &&
-      updateTodo(userToken, todo.id, {
-        title: todo.title,
-        content: todo.content,
-      }).then(() => {
-        getTodos(userToken).then(setTodos);
-      });
+    updateTodo(todo.id, {
+      title: todo.title,
+      content: todo.content,
+    }).then(() => {
+      getTodos().then(setTodos);
+    });
   };
 
   return (
