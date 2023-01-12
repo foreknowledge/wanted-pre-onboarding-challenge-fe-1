@@ -21,7 +21,7 @@ const TodoMain = () => {
   const [todoId, navigateTodo] = useNavigateTodo();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const curTodo = todos.find((item) => item.id === todoId) || null;
+  const curTodo = todos.find((item) => item.id === todoId) ?? null;
 
   useEffect(() => {
     getTodos().then(setTodos);
@@ -36,11 +36,8 @@ const TodoMain = () => {
 
   const handleDelete = (id: string) => {
     deleteTodo(id).then(() => {
-      const lastTodo = todos
-        .filter((item) => item.id !== id)
-        .slice(-1)
-        .at(0);
-      navigateTodo(lastTodo?.id || null);
+      const lastTodo = todos.filter((item) => item.id !== id).at(-1);
+      navigateTodo(lastTodo?.id ?? null);
     });
   };
 
@@ -63,9 +60,9 @@ const TodoMain = () => {
     updateTodo(todo.id, {
       title: todo.title,
       content: todo.content,
-    }).then(() => {
-      getTodos().then(setTodos);
-    });
+    })
+      .then(() => getTodos())
+      .then(setTodos);
   };
 
   return (
@@ -79,8 +76,10 @@ const TodoMain = () => {
               todos={todos}
               todoId={todoId}
               onItemClick={(id) => {
-                // 편집 중이라면 자동 저장
-                isEditing && curTodo && handleEditApply(curTodo);
+                if (isEditing && curTodo) {
+                  // 편집 중이라면 자동 저장
+                  handleEditApply(curTodo);
+                }
                 navigateTodo(id);
               }}
             />
