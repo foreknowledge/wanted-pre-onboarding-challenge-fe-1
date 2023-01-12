@@ -8,7 +8,7 @@ import {
 import useNeedLogin from '../../hook/useNeedLogin';
 import useTodoId from '../../hook/useTodoId';
 import { Todo } from '../../types/todo/todo.type';
-import { getUserToken } from '../../utils/todo/todo.util';
+import { getLoginToken } from '../../utils/token/token.util';
 import Header from './shared/Header';
 import TodoAddForm from './list/TodoAddForm';
 import TodoDetail from './detail/TodoDetail';
@@ -25,7 +25,7 @@ const TodoMain = () => {
   const curTodo = todos.find((item) => item.id === todoId) || null;
 
   useEffect(() => {
-    const userToken = getUserToken();
+    const userToken = getLoginToken();
     userToken && getTodos(userToken).then(setTodos);
   }, [todoId]);
 
@@ -33,7 +33,7 @@ const TodoMain = () => {
     // 편집 중이라면 자동 저장
     isEditing && curTodo && handleEditApply(curTodo);
 
-    const userToken = getUserToken();
+    const userToken = getLoginToken();
     userToken &&
       createTodo(userToken, { title, content }).then((data) =>
         setTodoId(data.id)
@@ -41,7 +41,7 @@ const TodoMain = () => {
   };
 
   const handleDelete = (id: string) => {
-    const userToken = getUserToken();
+    const userToken = getLoginToken();
     userToken &&
       deleteTodo(userToken, id).then(() => {
         const lastTodo = todos
@@ -63,13 +63,13 @@ const TodoMain = () => {
 
   const handleEditCancel = () => {
     setIsEditing(false);
-    const userToken = getUserToken();
+    const userToken = getLoginToken();
     userToken && getTodos(userToken).then(setTodos);
   };
 
   const handleEditApply = (todo: Todo) => {
     setIsEditing(false);
-    const userToken = getUserToken();
+    const userToken = getLoginToken();
     userToken &&
       updateTodo(userToken, todo.id, {
         title: todo.title,

@@ -1,1 +1,1 @@
-export const LOCAL_STORAGE_USER_TOKEN_KEY = 'user_token';
+export const ACCESS_TOKEN_KEY = 'access_token';

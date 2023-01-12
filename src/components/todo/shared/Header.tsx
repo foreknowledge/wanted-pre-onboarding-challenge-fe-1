@@ -1,11 +1,11 @@
-import { LOCAL_STORAGE_USER_TOKEN_KEY } from '../../../constants/token/token.constant';
+import { clearLoginToken } from '../../../utils/token/token.util';
 
 const Header = () => {
   const handleLogout = () => {
     const result = window.confirm('정말 로그아웃 하시겠습니까?');
     if (!result) return;
 
-    window.localStorage.removeItem(LOCAL_STORAGE_USER_TOKEN_KEY);
+    clearLoginToken();
     window.location.reload();
   };
 

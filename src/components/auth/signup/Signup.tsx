@@ -5,11 +5,11 @@ import useBlockLoginUser from '../../../hook/useBlockLoginUser';
 import EmailInput from '../shared/EmailInput';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
 import PasswordInput from '../shared/PasswordInput';
-import { LOCAL_STORAGE_USER_TOKEN_KEY } from '../../../constants/token/token.constant';
 import {
   PATH_LOGIN,
   PATH_MAIN,
 } from '../../../constants/routes/routes.constant';
+import { setLoginToken } from '../../../utils/token/token.util';
 
 const SignUp = () => {
   useBlockLoginUser();
@@ -29,7 +29,7 @@ const SignUp = () => {
       if (data.token) {
         // 가입 성공
         alert(data.message);
-        window.localStorage.setItem(LOCAL_STORAGE_USER_TOKEN_KEY, data.token);
+        setLoginToken(data.token);
         navigate(PATH_MAIN);
         return;
       }

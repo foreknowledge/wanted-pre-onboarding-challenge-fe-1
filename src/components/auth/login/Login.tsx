@@ -1,15 +1,15 @@
 import { FormEvent, useState } from 'react';
-import EmailInput from '../shared/EmailInput';
-import { login } from '../../../api/auth/auth.api';
-import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
 import { useNavigate } from 'react-router-dom';
-import useBlockLoginUser from '../../../hook/useBlockLoginUser';
-import PasswordInput from '../shared/PasswordInput';
-import { LOCAL_STORAGE_USER_TOKEN_KEY } from '../../../constants/token/token.constant';
+import { login } from '../../../api/auth/auth.api';
 import {
   PATH_MAIN,
   PATH_SIGNUP,
 } from '../../../constants/routes/routes.constant';
+import useBlockLoginUser from '../../../hook/useBlockLoginUser';
+import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
+import { setLoginToken } from '../../../utils/token/token.util';
+import EmailInput from '../shared/EmailInput';
+import PasswordInput from '../shared/PasswordInput';
 
 const Login = () => {
   useBlockLoginUser();
@@ -28,7 +28,7 @@ const Login = () => {
     login({ email, password }).then((data) => {
       if (data.token) {
         // 로그인 성공
-        window.localStorage.setItem(LOCAL_STORAGE_USER_TOKEN_KEY, data.token);
+        setLoginToken(data.token);
         navigate(PATH_MAIN);
         return;
       }
