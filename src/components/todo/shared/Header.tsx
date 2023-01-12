@@ -1,11 +1,11 @@
-import { clearLoginToken } from '../../../utils/token/token.util';
+import { clearAuthToken } from '../../../utils/token/token.util';
 
 const Header = () => {
   const handleLogout = () => {
     const result = window.confirm('정말 로그아웃 하시겠습니까?');
     if (!result) return;
 
-    clearLoginToken();
+    clearAuthToken();
     window.location.reload();
   };
 

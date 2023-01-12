@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signup } from '../../../api/auth/auth.api';
 import useBlockLoginUser from '../../../hook/useBlockLoginUser';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
-import { setLoginToken } from '../../../utils/token/token.util';
+import { setAuthToken } from '../../../utils/token/token.util';
 import EmailInput from '../shared/EmailInput';
 import PasswordInput from '../shared/PasswordInput';
 
@@ -25,7 +25,7 @@ const SignUp = () => {
       if (data.token) {
         // 가입 성공
         alert(data.message);
-        setLoginToken(data.token);
+        setAuthToken(data.token);
         navigate('/');
         return;
       }
