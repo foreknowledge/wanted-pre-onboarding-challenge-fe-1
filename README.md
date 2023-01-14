@@ -12,6 +12,28 @@
 | 서버 요청 | 내장 fetch API |
 | 페이지 처리 | React Router |
 
+## 실행 방법
+
+### 1. 서버 실행
+
+앱을 실행하기 위해서는 먼저 서버를 실행해야 합니다.
+
+[서버 프로젝트](https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api)를 클론 받아서 아래 명령어를 이용해 서버를 실행 합니다.
+
+```shell
+> yarn
+> yarn start # http://localhost:8080
+```
+
+### 2. 앱 실행
+
+본 프로젝트를 클론 받아 아래 명령어로 앱을 실행할 수 있습니다.
+
+```shell
+> yarn
+> yarn start
+```
+
 ## 로그인 / 회원가입 페이지
 
 | 로그인 | 회원가입 |
