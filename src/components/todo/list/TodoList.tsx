@@ -3,11 +3,11 @@ import TodoItem from '../list/TodoItem';
 
 type Props = {
   todos: Todo[];
-  todoId: string | null;
+  curTodo: Todo | undefined;
   onItemClick: (id: string) => void;
 };
 
-const TodoList = ({ todos, todoId, onItemClick }: Props) => {
+const TodoList = ({ todos, curTodo, onItemClick }: Props) => {
   return (
     <ul className="absolute top-0 bottom-0 left-0 right-0 overflow-scroll p-4">
       {todos
@@ -16,8 +16,8 @@ const TodoList = ({ todos, todoId, onItemClick }: Props) => {
         .map((todo) => (
           <TodoItem
             key={todo.id}
-            todo={todo}
-            isSelected={todo.id === todoId}
+            todo={todo.id === curTodo?.id ? curTodo : todo}
+            isSelected={todo.id === curTodo?.id}
             onClick={onItemClick}
           />
         ))}

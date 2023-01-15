@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import {
-  createTodo,
-  deleteTodo,
-  getTodos,
-  updateTodo,
-} from '../../api/todo/todo.api';
+import useCreateTodo from '../../hook/mutations/todo/useCreateTodo';
+import useDeleteTodo from '../../hook/mutations/todo/useDeleteTodo';
+import useUpdateTodo from '../../hook/mutations/todo/useUpdateTodo';
+import useTodos from '../../hook/queries/todo/useTodos';
 import useNavigateTodo from '../../hook/useNavigateTodo';
 import useNeedLogin from '../../hook/useNeedLogin';
 import { Todo } from '../../types/todo/todo.type';
@@ -18,51 +16,54 @@ const TodoMain = () => {
   // 로그인 여부 확인
   useNeedLogin();
 
-  const [todoId, navigateTodo] = useNavigateTodo();
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { data: todos, refetch: refreshTodos } = useTodos();
+  const { mutate: createTodo } = useCreateTodo();
+  const { mutate: updateTodo } = useUpdateTodo();
+  const { mutate: deleteTodo } = useDeleteTodo();
+
+  // 현재 선택된 Todo Id
+  const [curTodoId, navigateTodo] = useNavigateTodo();
+  // 현재 편집 중인 Todo를 실시간으로 화면에 반영하기 위한 데이터
+  const [curTodo, setCurTodo] = useState<Todo | undefined>();
+  // 편집 모드 on/off
   const [isEditing, setIsEditing] = useState(false);
-  const curTodo = todos.find((item) => item.id === todoId) ?? null;
 
   useEffect(() => {
-    getTodos().then(setTodos);
-  }, [todoId]);
+    setCurTodo(todos?.find((item) => item.id === curTodoId));
+  }, [todos, curTodoId]);
 
   const handleAdd = (title: string, content: string) => {
-    // 편집 중이라면 자동 저장
-    isEditing && curTodo && handleEditApply(curTodo);
+    if (isEditing) {
+      // 편집 중이라면 자동 저장
+      handleEditApply();
+    }
 
-    createTodo({ title, content }).then((data) => navigateTodo(data.id));
+    createTodo(
+      { title, content },
+      { onSuccess: (data) => navigateTodo(data.id) }
+    );
   };
 
   const handleDelete = (id: string) => {
-    deleteTodo(id).then(() => {
-      const lastTodo = todos.filter((item) => item.id !== id).at(-1);
-      navigateTodo(lastTodo?.id ?? null);
+    deleteTodo(id, {
+      onSuccess: () => {
+        const lastTodo = todos?.filter((item) => item.id !== id).at(-1);
+        navigateTodo(lastTodo?.id ?? null);
+      },
     });
   };
 
-  const handleEditChange = (todo: Todo) => {
-    const idx = todos.findIndex((item) => item.id === todo.id);
-    if (idx >= 0) {
-      const newTodos = [...todos];
-      newTodos[idx] = todo;
-      setTodos(newTodos);
-    }
+  const handleEditCancel = (prevTodo: Todo) => {
+    setIsEditing(false);
+    setCurTodo(prevTodo);
   };
 
-  const handleEditCancel = () => {
+  const handleEditApply = () => {
     setIsEditing(false);
-    getTodos().then(setTodos);
-  };
 
-  const handleEditApply = (todo: Todo) => {
-    setIsEditing(false);
-    updateTodo(todo.id, {
-      title: todo.title,
-      content: todo.content,
-    })
-      .then(() => getTodos())
-      .then(setTodos);
+    if (!curTodo) return;
+
+    updateTodo(curTodo, { onSuccess: refreshTodos });
   };
 
   return (
@@ -73,12 +74,12 @@ const TodoMain = () => {
           <TodoAddForm onAdd={handleAdd} />
           <div className="relative flex-1">
             <TodoList
-              todos={todos}
-              todoId={todoId}
+              todos={todos ?? []}
+              curTodo={curTodo}
               onItemClick={(id) => {
-                if (isEditing && curTodo) {
+                if (isEditing) {
                   // 편집 중이라면 자동 저장
-                  handleEditApply(curTodo);
+                  handleEditApply();
                 }
                 navigateTodo(id);
               }}
@@ -96,7 +97,7 @@ const TodoMain = () => {
           {curTodo && isEditing && (
             <TodoEdit
               todo={curTodo}
-              onChange={handleEditChange}
+              onChange={setCurTodo}
               onCancel={handleEditCancel}
               onApply={handleEditApply}
             />
