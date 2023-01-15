@@ -74,7 +74,6 @@ const TodoMain = () => {
           <TodoAddForm onAdd={handleAdd} />
           <div className="relative flex-1">
             <TodoList
-              todos={todos ?? []}
               curTodo={curTodo}
               onItemClick={(id) => {
                 if (isEditing) {
