@@ -67,7 +67,7 @@ const TodoMain = () => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex h-screen w-full flex-col">
       <Header />
       <div className="m-auto flex w-full flex-1">
         <section className="flex w-2/5 flex-col bg-purple-100">

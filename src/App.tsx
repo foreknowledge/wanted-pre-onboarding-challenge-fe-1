@@ -6,17 +6,15 @@ import TodoMain from './components/todo/TodoMain';
 
 const App = () => {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<TodoMain />} />
-          <Route path="/todos/:todoId" element={<TodoMain />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/signup" element={<SignUp />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TodoMain />} />
+        <Route path="/todos/:todoId" element={<TodoMain />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
