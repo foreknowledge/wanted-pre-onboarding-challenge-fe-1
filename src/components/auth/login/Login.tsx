@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../../api/auth/auth.api';
+import useLogin from '../../../hook/mutations/auth/useLogin';
 import useBlockLoginUser from '../../../hook/useBlockLoginUser';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
 import { setAuthToken } from '../../../utils/token/token.util';
@@ -11,6 +11,7 @@ const Login = () => {
   useBlockLoginUser();
 
   const navigate = useNavigate();
+  const { mutate: login } = useLogin();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,17 +22,24 @@ const Login = () => {
 
     if (!isInputValid) return;
 
-    login({ email, password }).then((data) => {
-      if (data.token) {
-        // 로그인 성공
-        setAuthToken(data.token);
-        navigate('/');
-        return;
-      }
+    login(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          if (data.token) {
+            // 로그인 성공
+            setAuthToken(data.token);
+            navigate('/');
+            return;
+          }
 
-      // 로그인 실패.
-      alert('로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인 해 주세요.');
-    });
+          // 로그인 실패.
+          alert(
+            '로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인 해 주세요.'
+          );
+        },
+      }
+    );
   };
 
   return (
