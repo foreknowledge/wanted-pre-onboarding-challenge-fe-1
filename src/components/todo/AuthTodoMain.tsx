@@ -11,7 +11,7 @@ import TodoAddForm from './list/TodoAddForm';
 import TodoList from './list/TodoList';
 import Header from './shared/Header';
 
-const TodoMain = () => {
+const AuthTodoMain = () => {
   const { data: todos, refetch: refreshTodos } = useTodos();
   const { mutate: createTodo } = useCreateTodo();
   const { mutate: updateTodo } = useUpdateTodo();
@@ -103,4 +103,4 @@ const TodoMain = () => {
   );
 };
 
-export default TodoMain;
+export default AuthTodoMain;
