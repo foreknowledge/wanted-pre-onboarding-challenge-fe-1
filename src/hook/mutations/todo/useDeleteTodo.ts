@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { BASE_URL } from '../../../constants/api/api.constant';
+import AuthToken from '../../../types/token/token.type';
 
-async function deleteTodo(token: string | null, id: string) {
+async function deleteTodo(token: AuthToken, id: string) {
   const options: RequestInit = {
     method: 'DELETE',
     headers: {
@@ -13,7 +14,7 @@ async function deleteTodo(token: string | null, id: string) {
     .then((data) => data.data);
 }
 
-export default function useDeleteTodo(token: string | null) {
+export default function useDeleteTodo(token: AuthToken) {
   const queryClient = useQueryClient();
   return useMutation((id: string) => deleteTodo(token, id), {
     onSuccess: () => queryClient.invalidateQueries('todos'),

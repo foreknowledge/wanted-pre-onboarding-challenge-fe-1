@@ -5,7 +5,7 @@ import useDeleteTodo from '../../hook/mutations/todo/useDeleteTodo';
 import useUpdateTodo from '../../hook/mutations/todo/useUpdateTodo';
 import useTodos from '../../hook/queries/todo/useTodos';
 import useNavigateTodo from '../../hook/todo/useNavigateTodo';
-import { Todo } from '../../types/todo/todo.type';
+import Todo from '../../types/todo/todo.type';
 import TodoDetail from './detail/TodoDetail';
 import TodoEdit from './detail/TodoEdit';
 import TodoAddForm from './list/TodoAddForm';

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import TokenContext from '../../../context/TokenContext';
 import useTodos from '../../../hook/queries/todo/useTodos';
-import { Todo } from '../../../types/todo/todo.type';
+import Todo from '../../../types/todo/todo.type';
 import TodoItem from '../list/TodoItem';
 
 type Props = {

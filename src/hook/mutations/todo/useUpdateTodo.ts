@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { BASE_URL } from '../../../constants/api/api.constant';
+import AuthToken from '../../../types/token/token.type';
 
 type UpdateParam = {
   id: string;
@@ -7,7 +8,7 @@ type UpdateParam = {
   content: string;
 };
 
-async function updateTodo(token: string | null, param: UpdateParam) {
+async function updateTodo(token: AuthToken, param: UpdateParam) {
   const options: RequestInit = {
     method: 'PUT',
     headers: {
@@ -21,7 +22,7 @@ async function updateTodo(token: string | null, param: UpdateParam) {
     .then((data) => data.data);
 }
 
-export default function useUpdateTodo(token: string | null) {
+export default function useUpdateTodo(token: AuthToken) {
   const queryClient = useQueryClient();
   return useMutation((param: UpdateParam) => updateTodo(token, param), {
     onSuccess: () => queryClient.invalidateQueries('todos'),
