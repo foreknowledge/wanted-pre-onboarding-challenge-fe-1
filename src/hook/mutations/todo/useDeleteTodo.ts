@@ -1,16 +1,12 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { BASE_URL } from '../../../constants/api/api.constant';
+import apiClient from '../../../api/apiClient';
 
 async function deleteTodo(token: string, id: string): Promise<null> {
-  const options: RequestInit = {
-    method: 'DELETE',
-    headers: {
-      Authorization: token,
-    },
-  };
-  return await fetch(BASE_URL + 'todos/' + id, options) //
-    .then((response) => response.json())
-    .then((data) => data.data);
+  return apiClient
+    .delete(`/todos/${id}`, {
+      headers: { Authorization: token },
+    })
+    .then((data) => data.data.data);
 }
 
 export default function useDeleteTodo(token: string) {

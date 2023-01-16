@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import { BASE_URL } from '../../../constants/api/api.constant';
+import apiClient from '../../../api/apiClient';
 
 type LoginParam = {
   email: string;
@@ -12,15 +12,13 @@ type LoginResponse = {
 };
 
 async function login(param: LoginParam): Promise<LoginResponse> {
-  const options: RequestInit = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(param),
-  };
-  return await fetch(BASE_URL + 'users/login', options) //
-    .then((response) => response.json());
+  return apiClient
+    .post('/users/login', param, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((data) => data.data);
 }
 
 export default function useLogin() {

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { BASE_URL } from '../../../constants/api/api.constant';
+import apiClient from '../../../api/apiClient';
 import Todo from '../../../types/todo/todo.type';
 
 type UpdateParam = {
@@ -9,17 +9,15 @@ type UpdateParam = {
 };
 
 async function updateTodo(token: string, param: UpdateParam): Promise<Todo> {
-  const options: RequestInit = {
-    method: 'PUT',
-    headers: {
-      Authorization: token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ title: param.title, content: param.content }),
-  };
-  return await fetch(BASE_URL + 'todos/' + param.id, options) //
-    .then((response) => response.json())
-    .then((data) => data.data);
+  const data = { title: param.title, content: param.content };
+  return apiClient
+    .put(`/todos/${param.id}`, data, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((data) => data.data.data);
 }
 
 export default function useUpdateTodo(token: string) {

@@ -1,17 +1,15 @@
 import { useQuery } from 'react-query';
-import { BASE_URL } from '../../../constants/api/api.constant';
+import apiClient from '../../../api/apiClient';
 import Todo from '../../../types/todo/todo.type';
 
 async function getTodoById(token: string, id: string): Promise<Todo> {
-  const options: RequestInit = {
-    method: 'GET',
-    headers: {
-      Authorization: token,
-    },
-  };
-  return await fetch(BASE_URL + 'todos/' + id, options) //
-    .then((response) => response.json())
-    .then((data) => data.data);
+  return apiClient
+    .get(`/todos/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((data) => data.data.data);
 }
 
 export default function useTodoById(token: string, id: string) {
