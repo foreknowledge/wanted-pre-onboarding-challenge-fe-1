@@ -3,8 +3,7 @@ import useCreateTodo from '../../hook/mutations/todo/useCreateTodo';
 import useDeleteTodo from '../../hook/mutations/todo/useDeleteTodo';
 import useUpdateTodo from '../../hook/mutations/todo/useUpdateTodo';
 import useTodos from '../../hook/queries/todo/useTodos';
-import useNavigateTodo from '../../hook/useNavigateTodo';
-import useNeedLogin from '../../hook/useNeedLogin';
+import useNavigateTodo from '../../hook/todo/useNavigateTodo';
 import { Todo } from '../../types/todo/todo.type';
 import TodoDetail from './detail/TodoDetail';
 import TodoEdit from './detail/TodoEdit';
@@ -13,9 +12,6 @@ import TodoList from './list/TodoList';
 import Header from './shared/Header';
 
 const TodoMain = () => {
-  // 로그인 여부 확인
-  useNeedLogin();
-
   const { data: todos, refetch: refreshTodos } = useTodos();
   const { mutate: createTodo } = useCreateTodo();
   const { mutate: updateTodo } = useUpdateTodo();

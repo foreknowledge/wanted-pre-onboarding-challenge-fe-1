@@ -1,15 +1,12 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '../../../hook/mutations/auth/useLogin';
-import useBlockLoginUser from '../../../hook/useBlockLoginUser';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
 import { setAuthToken } from '../../../utils/token/token.util';
 import EmailInput from '../shared/EmailInput';
 import PasswordInput from '../shared/PasswordInput';
 
 const Login = () => {
-  useBlockLoginUser();
-
   const navigate = useNavigate();
   const { mutate: login } = useLogin();
   const [email, setEmail] = useState('');

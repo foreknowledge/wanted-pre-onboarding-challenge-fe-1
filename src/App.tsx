@@ -3,17 +3,26 @@ import Login from './components/auth/login/Login';
 import SignUp from './components/auth/signup/Signup';
 import NotFound from './components/todo/shared/NotFound';
 import TodoMain from './components/todo/TodoMain';
+import TonkenProvider from './context/TokenProvider';
+import Authorized from './router/Authorized';
+import UnAuthorized from './router/UnAuthorized';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<TodoMain />} />
-        <Route path="/todos/:todoId" element={<TodoMain />} />
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/signup" element={<SignUp />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <TonkenProvider>
+        <Routes>
+          <Route element={<Authorized />}>
+            <Route path="/" element={<TodoMain />} />
+            <Route path="/todos/:todoId" element={<TodoMain />} />
+          </Route>
+          <Route element={<UnAuthorized />}>
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/signup" element={<SignUp />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </TonkenProvider>
     </BrowserRouter>
   );
 };
