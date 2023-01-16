@@ -1,13 +1,12 @@
-import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FormEvent, useContext, useState } from 'react';
+import TokenContext from '../../../context/TokenContext';
 import useLogin from '../../../hook/mutations/auth/useLogin';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
-import { setAuthToken } from '../../../utils/token/token.util';
 import EmailInput from '../shared/EmailInput';
 import PasswordInput from '../shared/PasswordInput';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const { saveToken } = useContext(TokenContext);
   const { mutate: login } = useLogin();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,8 +24,7 @@ const Login = () => {
         onSuccess: (data) => {
           if (data.token) {
             // 로그인 성공
-            setAuthToken(data.token);
-            navigate('/');
+            saveToken(data.token);
             return;
           }
 

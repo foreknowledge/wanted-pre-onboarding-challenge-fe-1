@@ -1,13 +1,12 @@
-import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FormEvent, useContext, useState } from 'react';
+import TokenContext from '../../../context/TokenContext';
 import useSignup from '../../../hook/mutations/auth/useSignup';
 import { isEmailValid, isPasswordValid } from '../../../utils/auth/auth.util';
-import { setAuthToken } from '../../../utils/token/token.util';
 import EmailInput from '../shared/EmailInput';
 import PasswordInput from '../shared/PasswordInput';
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  const { saveToken } = useContext(TokenContext);
   const { mutate: signup } = useSignup();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,8 +25,7 @@ const SignUp = () => {
           if (data.token) {
             // 가입 성공
             alert(data.message);
-            setAuthToken(data.token);
-            navigate('/');
+            saveToken(data.token);
             return;
           }
 

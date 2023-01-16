@@ -1,12 +1,13 @@
-import { clearAuthToken } from '../../../utils/token/token.util';
+import { useContext } from 'react';
+import TokenContext from '../../../context/TokenContext';
 
 const Header = () => {
+  const { clearToken } = useContext(TokenContext);
   const handleLogout = () => {
     const result = window.confirm('정말 로그아웃 하시겠습니까?');
     if (!result) return;
 
-    clearAuthToken();
-    window.location.reload();
+    clearToken();
   };
 
   return (
