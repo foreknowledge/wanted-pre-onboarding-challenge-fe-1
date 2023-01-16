@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import TokenContext from '../../context/TokenContext';
 import useCreateTodo from '../../hook/mutations/todo/useCreateTodo';
 import useDeleteTodo from '../../hook/mutations/todo/useDeleteTodo';
 import useUpdateTodo from '../../hook/mutations/todo/useUpdateTodo';
@@ -12,10 +13,11 @@ import TodoList from './list/TodoList';
 import Header from './shared/Header';
 
 const AuthTodoMain = () => {
-  const { data: todos, refetch: refreshTodos } = useTodos();
-  const { mutate: createTodo } = useCreateTodo();
-  const { mutate: updateTodo } = useUpdateTodo();
-  const { mutate: deleteTodo } = useDeleteTodo();
+  const { token } = useContext(TokenContext);
+  const { data: todos, refetch: refreshTodos } = useTodos(token);
+  const { mutate: createTodo } = useCreateTodo(token);
+  const { mutate: updateTodo } = useUpdateTodo(token);
+  const { mutate: deleteTodo } = useDeleteTodo(token);
 
   // 현재 선택된 Todo Id
   const [curTodoId, navigateTodo] = useNavigateTodo();

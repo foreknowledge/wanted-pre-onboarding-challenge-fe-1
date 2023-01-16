@@ -1,13 +1,12 @@
 import { useQuery } from 'react-query';
 import { BASE_URL } from '../../../constants/api/api.constant';
 import { Todo } from '../../../types/todo/todo.type';
-import { getAuthToken } from '../../../utils/token/token.util';
 
-async function getTodos() {
+async function getTodos(token: string | null) {
   const options: RequestInit = {
     method: 'GET',
     headers: {
-      Authorization: getAuthToken() ?? '',
+      Authorization: token ?? '',
     },
   };
   return await fetch(BASE_URL + 'todos', options) //
@@ -15,6 +14,8 @@ async function getTodos() {
     .then((data) => data.data);
 }
 
-export default function useTodos() {
-  return useQuery<Todo[], Error>('todos', getTodos, { initialData: [] });
+export default function useTodos(token: string | null) {
+  return useQuery<Todo[], Error>('todos', () => getTodos(token), {
+    initialData: [],
+  });
 }
