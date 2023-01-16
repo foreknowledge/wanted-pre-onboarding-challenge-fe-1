@@ -61,7 +61,7 @@ const AuthTodoMain = () => {
 
     if (!curTodo) return;
 
-    updateTodo(curTodo, { onSuccess: refreshTodos });
+    updateTodo(curTodo, { onSuccess: () => refreshTodos() });
   };
 
   return (

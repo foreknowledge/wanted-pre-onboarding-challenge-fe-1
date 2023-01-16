@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { BASE_URL } from '../../../constants/api/api.constant';
+import Todo from '../../../types/todo/todo.type';
 import AuthToken from '../../../types/token/token.type';
 
 type UpdateParam = {
@@ -8,7 +9,7 @@ type UpdateParam = {
   content: string;
 };
 
-async function updateTodo(token: AuthToken, param: UpdateParam) {
+async function updateTodo(token: AuthToken, param: UpdateParam): Promise<Todo> {
   const options: RequestInit = {
     method: 'PUT',
     headers: {

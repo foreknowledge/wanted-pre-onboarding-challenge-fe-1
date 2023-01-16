@@ -3,7 +3,7 @@ import { BASE_URL } from '../../../constants/api/api.constant';
 import Todo from '../../../types/todo/todo.type';
 import AuthToken from '../../../types/token/token.type';
 
-async function getTodos(token: AuthToken) {
+async function getTodos(token: AuthToken): Promise<Todo[]> {
   const options: RequestInit = {
     method: 'GET',
     headers: {

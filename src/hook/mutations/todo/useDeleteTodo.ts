@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { BASE_URL } from '../../../constants/api/api.constant';
 import AuthToken from '../../../types/token/token.type';
 
-async function deleteTodo(token: AuthToken, id: string) {
+async function deleteTodo(token: AuthToken, id: string): Promise<null> {
   const options: RequestInit = {
     method: 'DELETE',
     headers: {
