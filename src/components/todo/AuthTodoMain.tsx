@@ -14,10 +14,10 @@ import Header from './shared/Header';
 
 const AuthTodoMain = () => {
   const { token } = useContext(TokenContext);
-  const { data: todos, refetch: refreshTodos } = useTodos(token);
-  const { mutate: createTodo } = useCreateTodo(token);
-  const { mutate: updateTodo } = useUpdateTodo(token);
-  const { mutate: deleteTodo } = useDeleteTodo(token);
+  const { data: todos, refetch: refreshTodos } = useTodos(token!);
+  const { mutate: createTodo } = useCreateTodo(token!);
+  const { mutate: updateTodo } = useUpdateTodo(token!);
+  const { mutate: deleteTodo } = useDeleteTodo(token!);
 
   // 현재 선택된 Todo Id
   const [curTodoId, navigateTodo] = useNavigateTodo();

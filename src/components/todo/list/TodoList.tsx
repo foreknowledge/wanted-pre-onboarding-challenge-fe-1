@@ -11,7 +11,7 @@ type Props = {
 
 const TodoList = ({ curTodo, onItemClick }: Props) => {
   const { token } = useContext(TokenContext);
-  const { data: todos } = useTodos(token);
+  const { data: todos } = useTodos(token!);
 
   return (
     <ul className="absolute top-0 bottom-0 left-0 right-0 overflow-scroll p-4">

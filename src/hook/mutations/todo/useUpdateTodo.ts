@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { BASE_URL } from '../../../constants/api/api.constant';
 import Todo from '../../../types/todo/todo.type';
-import AuthToken from '../../../types/token/token.type';
 
 type UpdateParam = {
   id: string;
@@ -9,11 +8,11 @@ type UpdateParam = {
   content: string;
 };
 
-async function updateTodo(token: AuthToken, param: UpdateParam): Promise<Todo> {
+async function updateTodo(token: string, param: UpdateParam): Promise<Todo> {
   const options: RequestInit = {
     method: 'PUT',
     headers: {
-      Authorization: token ?? '',
+      Authorization: token,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ title: param.title, content: param.content }),
@@ -23,7 +22,7 @@ async function updateTodo(token: AuthToken, param: UpdateParam): Promise<Todo> {
     .then((data) => data.data);
 }
 
-export default function useUpdateTodo(token: AuthToken) {
+export default function useUpdateTodo(token: string) {
   const queryClient = useQueryClient();
   return useMutation((param: UpdateParam) => updateTodo(token, param), {
     onSuccess: () => queryClient.invalidateQueries('todos'),
