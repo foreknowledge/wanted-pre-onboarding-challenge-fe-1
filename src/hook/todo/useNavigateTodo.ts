@@ -8,10 +8,13 @@ export default function useNavigateTodo(): [
   const navigate = useNavigate();
   const { todoId } = useParams();
 
-  const navigateTodo = useCallback((id: string | null) => {
-    if (id) navigate('/todos/' + id);
-    else navigate('/todos');
-  }, []);
+  const navigateTodo = useCallback(
+    (id: string | null) => {
+      if (id) navigate('/todos/' + id);
+      else navigate('/todos');
+    },
+    [navigate]
+  );
 
   return [todoId ?? null, navigateTodo];
 }

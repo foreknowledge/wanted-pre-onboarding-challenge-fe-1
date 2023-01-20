@@ -1,17 +1,20 @@
-import { FormEvent } from 'react';
-import { Todo } from '../../../types/todo/todo.type';
+import { FormEvent, useRef } from 'react';
+import Todo from '../../../types/todo/todo.type';
 
 type Props = {
   todo: Todo;
   onChange: (todo: Todo) => void;
-  onCancel: () => void;
-  onApply: (todo: Todo) => void;
+  onCancel: (prevTodo: Todo) => void;
+  onApply: () => void;
 };
 
 const TodoEdit = ({ todo, onChange, onCancel, onApply }: Props) => {
+  // 변경 전 Todo 데이터 백업
+  const { current: prevTodo } = useRef<Todo>({ ...todo });
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onApply(todo);
+    onApply();
   };
 
   return (
@@ -20,7 +23,7 @@ const TodoEdit = ({ todo, onChange, onCancel, onApply }: Props) => {
         <button
           className="mx-3 text-lg font-bold text-purple-700 hover:opacity-60"
           type="button"
-          onClick={() => onCancel()}
+          onClick={() => onCancel(prevTodo)}
         >
           취소
         </button>
